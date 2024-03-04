@@ -1,5 +1,5 @@
 # Establece la imagen base
-FROM node:14 as build-stage
+FROM node:18 as build-stage
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app

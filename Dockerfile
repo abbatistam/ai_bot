@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Exponer el puerto 8080 (o el que uses en tu proyecto Vue.js)
-EXPOSE 8080
+EXPOSE 5173
 
 # Comando para ejecutar la aplicación cuando se inicie el contenedor
 CMD [ "npm", "run", "serve" ]

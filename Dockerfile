@@ -1,23 +1,29 @@
-# Configurar la imagen base
-FROM node:18.19.0-alpine
+# Establece la imagen base
+FROM node:14 as build-stage
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar los archivos de package.json y package-lock.json al directorio de trabajo
+# Copia los archivos de package.json y package-lock.json al directorio de trabajo
 COPY package*.json ./
 
-# Instalar las dependencias del proyecto
+# Instala las dependencias del proyecto
 RUN npm install
 
-# Copiar el resto de los archivos del proyecto al directorio de trabajo
+# Copia el resto de los archivos del proyecto al directorio de trabajo
 COPY . .
 
-# Compilar el proyecto
+# Compila el proyecto de Vue.js
 RUN npm run build
 
-# Exponer el puerto 8080 (o el que uses en tu proyecto Vue.js)
-EXPOSE 5173
+# Establece la segunda etapa de construcción para servir los archivos estáticos
+FROM nginx:1.21-alpine as production-stage
 
-# Comando para ejecutar la aplicación cuando se inicie el contenedor
-CMD [ "npm", "run", "dev" ]
+# Copia los archivos generados en la etapa de compilación al directorio de trabajo de nginx
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Expone el puerto en el que se ejecutará la aplicación
+EXPOSE 80
+
+# Ejecuta el servidor de nginx
+CMD ["nginx", "-g", "daemon off;"]

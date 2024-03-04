@@ -13,6 +13,10 @@ RUN npm install
 # Copia el resto de los archivos del proyecto al directorio de trabajo
 COPY . .
 
+# Configura las variables de entorno para el proceso de construcción
+ARG VITE_API_URL
+ENV VITE_API_URL $VITE_API_URL
+
 # Compila el proyecto de Vue.js
 RUN npm run build
 

@@ -25,6 +25,7 @@ import {
   faSpinner,
   faEllipsisVertical,
   faAngleDown,
+  faHelmetSafety,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./assets/main.css";
@@ -44,7 +45,8 @@ library.add(
   faSpinner,
   faEllipsisVertical,
   faAngleDown,
-  faClose
+  faClose,
+  faHelmetSafety
 );
 
 const app = createApp(App);

@@ -68,3 +68,14 @@ export async function deleteDocument(filename: string): Promise<string> {
     return "";
   }
 }
+
+// Endpoint para conocer el status de la api
+export async function status(): Promise<string> {
+  try {
+    const response = await axios.get(`${API_URL}/status`);
+    return response.data.status;
+  } catch (error) {
+    console.error(error);
+    return "";
+  }
+}
